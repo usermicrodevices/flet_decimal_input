@@ -1,0 +1,7 @@
+site_name: FletDecimalInput
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings

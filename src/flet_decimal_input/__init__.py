@@ -1,0 +1,1 @@
+from flet_decimal_input.flet_decimal_input import FletDecimalInput
