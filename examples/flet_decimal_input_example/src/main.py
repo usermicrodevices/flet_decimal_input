@@ -11,10 +11,9 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     decimal_input = FletDecimalInput(
-        tooltip="FletDecimalInput Control tooltip",
+        tooltip = "FletDecimalInput Control tooltip",
         value = 10.654,
-        #animate=ft.Animation(1000, "bounceOut"),
-        #on_animation_end=lambda e: print("Container animation end:", e.data, '; VALUE = ', e.control.value)
+        text_align = ft.TextAlign.RIGHT
     )
 
     page.add(

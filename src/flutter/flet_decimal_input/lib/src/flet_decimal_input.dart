@@ -1,3 +1,6 @@
+import 'dart:ui';
+//import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flet/flet.dart';
@@ -507,6 +510,7 @@ class FletDecimalInputControl extends StatelessWidget {
     int dgtsf = control.attrInt("digits_fractional", 3)!;
     int dgtsg = control.attrInt("digits_grouped", 3)!;
     bool isempty = control.attrBool("empty_allowed", false)!;
+    TextAlign text_align = parseTextAlign(control.attrString("text_align", "left"), TextAlign.start)!;
     final AmountInputFormatter _formatter = AmountInputFormatter(
       initialValue: this.value,
       decimalSeparator: sepd,
@@ -518,7 +522,7 @@ class FletDecimalInputControl extends StatelessWidget {
     );
     final TextEditingController _controller = TextEditingController();
     _controller.syncWithFormatter(formatter: _formatter);
-    Widget wdgt = TextField(
+    Widget child = TextField(
       controller: _controller,
       inputFormatters: [_formatter],
       keyboardType: const TextInputType.numberWithOptions(
@@ -528,12 +532,16 @@ class FletDecimalInputControl extends StatelessWidget {
       onSubmitted: (text) {},
       onTapOutside: (_) {},
       onChanged: (text) {
-        debugPrint('Text value: $text');
-        debugPrint('Double value: ${_formatter.doubleValue}');
+        //debugPrint('Text value: $text');
+        //debugPrint('Double value: ${_formatter.doubleValue}');
         //backend.triggerControlEvent(control.id, "OnChanged", json.encode({'value':_formatter.doubleValue}));
         this.value = _formatter.doubleValue;
       },
+      textAlign: text_align
     );
-    return constrainedControl(context, wdgt, parent, control);
+    //backend.updateControlState(control.id, {'child_id':child.toStringShort()});
+    //backend.updateControlState(control.id, {'child_key':child.key.toString()});
+    //backend.updateControlState(control.id, {'child_type':child.runtimeType.toString()});
+    return constrainedControl(context, child, parent, control);
   }
 }
