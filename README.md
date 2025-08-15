@@ -1,5 +1,5 @@
 # flet-decimal-input
-FletDecimalInput control for Flet based on awesome code from https://github.com/TBR-Group-software/amount_input_formatter
+FletDecimalInput control for [Flet](https://github.com/flet-dev/flet) based on code from [amount_input_formatter](https://github.com/TBR-Group-software/amount_input_formatter)
 
 ## Installation
 
