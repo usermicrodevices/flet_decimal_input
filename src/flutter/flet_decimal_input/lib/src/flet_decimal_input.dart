@@ -253,7 +253,7 @@ class NumberFormatter {
       if (textInput.isEmpty) {
         return _processEmptyValue(textInput: textInput, isEmptyAllowed: isEmptyAllowed);
       }
-
+      print("textInput = $textInput");
       final List<String> doubleParts;
       if(dcSeparator.allMatches(textInput).length > 1)
       {
@@ -544,7 +544,7 @@ class FletDecimalInputControl extends StatelessWidget {
     //backend.updateControlState(control.id, {'child_id':child_widget.toStringShort()});
     //backend.updateControlState(control.id, {'child_key':child_widget.key.toString()});
     //backend.updateControlState(control.id, {'child_type':child_widget.runtimeType.toString()});
-    //return constrainedControl(context, child_widget, parent, control);
-    return child_widget;
+    //return child_widget;
+    return constrainedControl(context, child_widget, parent, control);
   }
 }
