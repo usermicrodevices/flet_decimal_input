@@ -1,5 +1,5 @@
 import 'dart:ui';
-//import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -491,14 +491,14 @@ extension FormatterTextControllerExtension on TextEditingController {
 class FletDecimalInputControl extends StatelessWidget {
   final Control? parent;
   final Control control;
-  //final FletControlBackend backend;
+  final FletControlBackend backend;
   double value = 0.0;
 
   FletDecimalInputControl({
     super.key,
     required this.parent,
     required this.control,
-    //required this.backend
+    required this.backend
   });
 
   @override
@@ -511,6 +511,7 @@ class FletDecimalInputControl extends StatelessWidget {
     int dgtsg = control.attrInt("digits_grouped", 3)!;
     bool isempty = control.attrBool("empty_allowed", false)!;
     TextAlign text_align = parseTextAlign(control.attrString("text_align", "left"), TextAlign.start)!;
+    //InputBorder border = parseFormFieldInputBorder(control.attrString("border", "none"), InputBorder.none)!;
     final AmountInputFormatter _formatter = AmountInputFormatter(
       initialValue: this.value,
       decimalSeparator: sepd,
@@ -522,26 +523,28 @@ class FletDecimalInputControl extends StatelessWidget {
     );
     final TextEditingController _controller = TextEditingController();
     _controller.syncWithFormatter(formatter: _formatter);
-    Widget child = TextField(
+    Widget child_widget = TextField(
       controller: _controller,
       inputFormatters: [_formatter],
       keyboardType: const TextInputType.numberWithOptions(
         signed: true,
         decimal: true,
       ),
-      onSubmitted: (text) {},
+      //onSubmitted: (text) {},
       onTapOutside: (_) {},
-      onChanged: (text) {
+      onChanged: (String text) {
         //debugPrint('Text value: $text');
         //debugPrint('Double value: ${_formatter.doubleValue}');
-        //backend.triggerControlEvent(control.id, "OnChanged", json.encode({'value':_formatter.doubleValue}));
+        backend.triggerControlEvent(control.id, "change", json.encode({'value':_formatter.doubleValue}));
         this.value = _formatter.doubleValue;
-      },
-      textAlign: text_align
+        },
+      textAlign: text_align,
+      //border: border,
     );
-    //backend.updateControlState(control.id, {'child_id':child.toStringShort()});
-    //backend.updateControlState(control.id, {'child_key':child.key.toString()});
-    //backend.updateControlState(control.id, {'child_type':child.runtimeType.toString()});
-    return constrainedControl(context, child, parent, control);
+    //backend.updateControlState(control.id, {'child_id':child_widget.toStringShort()});
+    //backend.updateControlState(control.id, {'child_key':child_widget.key.toString()});
+    //backend.updateControlState(control.id, {'child_type':child_widget.runtimeType.toString()});
+    //return constrainedControl(context, child_widget, parent, control);
+    return child_widget;
   }
 }

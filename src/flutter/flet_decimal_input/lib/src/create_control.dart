@@ -8,7 +8,7 @@ CreateControlFactory createControl = (CreateControlArgs args) {
       return FletDecimalInputControl(
         parent: args.parent,
         control: args.control,
-        //backend: args.backend
+        backend: args.backend
       );
     default:
       return null;
